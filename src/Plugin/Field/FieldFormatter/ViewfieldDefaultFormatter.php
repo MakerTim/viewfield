@@ -35,7 +35,8 @@ class ViewfieldDefaultFormatter extends ViewfieldFormatterBase {
       $view = Views::getView($item->view_name);
       $arguments = $this->expandViewArguments($item->view_args, $entity);
 
-      if ($view->access($item->view_display)) {
+      // View can be null when the reference is removed
+      if ($view && $view->access($item->view_display)) {
         // We ask ViewExecutable::buildRenderable() to avoid creating a render
         // cache entry for the view output by passing FALSE, because we're
         // going to cache the whole field's entity instead.
